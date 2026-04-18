@@ -1,23 +1,64 @@
 <!DOCTYPE html>
 <html lang="en">
-
+ 
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Campus MarketPlace - Home</title>
     <link rel="stylesheet" href="style.css">
-
+ 
     <!-- Google Font -->
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
-
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+ 
+    <style>
+        /* Cart badge */
+        .Cart_icon {
+            position: relative;
+        }
+        .cart-badge {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            background: #6c63ff;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+            width: 18px;
+            height: 18px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            pointer-events: none;
+        }
+ 
+        /* Toast notification */
+        .toast {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: #222;
+            color: white;
+            padding: 0.75rem 1.25rem;
+            border-radius: 8px;
+            font-size: 14px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.3s ease;
+            z-index: 9999;
+            pointer-events: none;
+        }
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+    </style>
 </head>
-
-
-
+ 
 <body>
     <header class="header">
-        <div class="logo"><img src="images\logo.png" alt="Campus Marketplace"></div>
+        <div class="logo"><a href="index.html"><img src="images/logo.png" alt="Campus Marketplace"></a></div>
         <nav>
             <ul>
                 <li><a href="#">Home</a></li>
@@ -32,11 +73,14 @@
         </div>
         <button>Login</button>
         <div class="Cart_icon">
-            <a href="Cart.html"><i class="fa-solid fa-cart-shopping" style="color: rgb(108, 99, 255);"></i></a>
+            <a href="Cart.html">
+                <i class="fa-solid fa-cart-shopping" style="color: rgb(108, 99, 255);"></i>
+            </a>
+            <span class="cart-badge" id="cart-badge">0</span>
         </div>
     </header>
-
-
+ 
+ 
     <section class="hero">
         <h1>Don't Buy New. Buy Smart</h1>
         <p>Everything students need, from seniors near you</p>
@@ -46,9 +90,8 @@
             <button>Request Items</button>
         </div>
     </section>
-
-
-
+ 
+ 
     <section class="browse-categories">
         <h2>Browse Categories</h2>
         <div class="grid">
@@ -57,187 +100,155 @@
                 <h3>Notes</h3>
                 <p>study material</p>
             </div>
-
             <div class="card">
                 <div class="card-logo"><i class="fa-solid fa-display"></i></div>
                 <h3>Electronics</h3>
-                <p>Calculator,charger and watch</p>
+                <p>Calculator, charger and watch</p>
             </div>
-
             <div class="card">
                 <div class="card-logo"><i class="fa-solid fa-pen"></i></div>
                 <h3>Accessories</h3>
-                <p>Bags,copy and pens</p>
+                <p>Bags, copy and pens</p>
             </div>
-
             <div class="card">
                 <div class="card-logo"><i class="fa-solid fa-gift"></i></div>
                 <h3>Free Items</h3>
                 <p>Grab before others!</p>
             </div>
-
         </div>
     </section>
-
-
-
-
+ 
+ 
     <section class="Popular-deals">
         <h2>Popular Deals</h2>
         <div class="grid">
             <div class="card">
                 <span class="discount">20% OFF</span>
-                <img src="images\bag.jpg" alt="">
+                <img src="images/bag.jpg" alt="College Bag">
                 <div class="price">
-                    <h4>College Bag : </h4>
+                    <h4>College Bag</h4>
                     <p>₹900</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'bag', name:'College Bag', price:900, src:'images/bag.jpg', category:'Accessories'})">Add to Cart</button>
             </div>
-
+ 
             <div class="card">
                 <span class="discount">20% OFF</span>
-                <img src="images\calculater.jpg" alt="img2">
+                <img src="images/calculater.jpg" alt="Calculator">
                 <div class="price">
                     <h4>Calculator</h4>
                     <p>₹700</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'calculator', name:'Calculator', price:700, src:'images/calculater.jpg', category:'Electronics'})">Add to Cart</button>
             </div>
-
+ 
             <div class="card">
                 <span class="discount">50% OFF</span>
-                <img src="images\watch.jpg" alt="img3">
+                <img src="images/watch.jpg" alt="Watch">
                 <div class="price">
                     <h4>Watch</h4>
                     <p>₹1700</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'watch', name:'Watch', price:1700, src:'images/watch.jpg', category:'Electronics'})">Add to Cart</button>
             </div>
-
+ 
             <div class="card">
                 <span class="discount">30% OFF</span>
-                <img src="images\football.jpg" alt="img4">
+                <img src="images/football.jpg" alt="Football">
                 <div class="price">
                     <h4>Football</h4>
                     <p>₹200</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'football', name:'Football', price:200, src:'images/football.jpg', category:'Sports'})">Add to Cart</button>
             </div>
-
         </div>
     </section>
-
-
+ 
+ 
     <section class="new-items">
         <h2>Books Collection</h2>
         <div class="grid">
             <div class="card">
                 <span class="discount">New</span>
-                <img src="images\The art of being alone.jpg" alt="">
+                <img src="images/The art of being alone.jpg" alt="The Art of Being Alone">
                 <div class="price">
-                    <h4>Book: </h4>
+                    <h4>The Art of Being Alone</h4>
                     <p>₹90</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'book-alone', name:'The Art of Being Alone', price:90, src:'images/The art of being alone.jpg', category:'Books'})">Add to Cart</button>
             </div>
-
+ 
             <div class="card">
                 <span class="discount">New</span>
-                <img src="images\atomichabit.jpg" alt="img2">
+                <img src="images/atomichabit.jpg" alt="Atomic Habits">
                 <div class="price">
-                    <h4>Atomic Habit</h4>
+                    <h4>Atomic Habits</h4>
                     <p>₹130</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'book-atomic', name:'Atomic Habits', price:130, src:'images/atomichabit.jpg', category:'Books'})">Add to Cart</button>
             </div>
-
+ 
             <div class="card">
                 <span class="discount">New</span>
-                <img src="images\download (2).jpg" alt="img3">
+                <img src="images/download (2).jpg" alt="Book">
                 <div class="price">
-                    <h4>Book</h4>
+                    <h4>The Art of Letting Go</h4>
                     <p>₹100</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'book-letting', name:'The Art of Letting Go', price:100, src:'images/download (2).jpg', category:'Books'})">Add to Cart</button>
             </div>
-
+ 
             <div class="card">
                 <span class="discount">New</span>
-                <img src="images\artofbeing.jpg" alt="img4">
+                <img src="images/artofbeing.jpg" alt="Art of Being">
                 <div class="price">
-                    <h4>Book</h4>
+                    <h4>Art of Being</h4>
                     <p>₹60</p>
                 </div>
                 <button>BUY</button>
-                <button>Add to Cart</button>
+                <button onclick="addToCart({id:'book-artofbeing', name:'Art of Being', price:60, src:'images/artofbeing.jpg', category:'Books'})">Add to Cart</button>
             </div>
-
         </div>
     </section>
-
+ 
+ 
     <section class="about">
         <div class="container">
-
-            <h2>Campus Marketplace - Buy & Sell Inside Your Campus</h2>
+            <h2>Campus Marketplace - Buy &amp; Sell Inside Your Campus</h2>
             <p class="intro">
                 Campus Marketplace is a simple and smart platform designed especially for students to buy and sell
                 products within their campus. Whether you want to sell something you no longer need or find great deals
                 from others, this platform makes the process quick, easy, and hassle-free.
             </p>
-
             <div class="features">
-
                 <div class="feature">
                     <h3>Sell Your Products Easily</h3>
-                    <p>
-                        Have something to sell? From books and notes to electronics and daily essentials, you can list
-                        any product in just a few steps. Create your account, upload product details, set your price,
-                        and make your listing visible to other students on campus.
-                    </p>
+                    <p>Have something to sell? From books and notes to electronics and daily essentials, you can list any product in just a few steps.</p>
                 </div>
-
                 <div class="feature">
                     <h3>Instant Notifications</h3>
-                    <p>
-                        Whenever someone shows interest in your product or wants to buy it, you’ll receive an instant
-                        notification. This helps you respond quickly and close deals faster.
-                    </p>
+                    <p>Whenever someone shows interest in your product or wants to buy it, you'll receive an instant notification.</p>
                 </div>
-
                 <div class="feature">
                     <h3>Direct Communication</h3>
-                    <p>
-                        Our platform allows direct communication between buyers and sellers. You can discuss price,
-                        pickup location, and other details easily without any middleman.
-                    </p>
+                    <p>Our platform allows direct communication between buyers and sellers without any middleman.</p>
                 </div>
-
                 <div class="feature">
                     <h3>Built for Campus Community</h3>
-                    <p>
-                        This platform is designed specifically for your campus community, making it easier to connect
-                        with people nearby. It builds trust and makes transactions smoother and faster.
-                    </p>
+                    <p>Designed specifically for your campus community, making it easier to connect with people nearby.</p>
                 </div>
-
                 <div class="feature">
                     <h3>Save Money, Reduce Waste</h3>
-                    <p>
-                        By buying and selling used items, you not only save money but also promote sustainability by
-                        reducing waste. It’s a smarter and more eco-friendly way to shop.
-                    </p>
+                    <p>By buying and selling used items, you not only save money but also promote sustainability.</p>
                 </div>
-
             </div>
-
             <div class="why">
                 <h3>Why Choose Campus Marketplace?</h3>
                 <ul>
@@ -248,16 +259,13 @@
                     <li>Clean and user-friendly interface</li>
                 </ul>
             </div>
-
             <div class="cta">
-                <p>Create your account, list your products, and make buying and selling within your campus easier than
-                    ever.</p>
+                <p>Create your account, list your products, and make buying and selling within your campus easier than ever.</p>
                 <button>Get Started</button>
             </div>
-
         </div>
     </section>
-
+ 
     <footer class="footer">
         <p>© 2026 Campus Marketplace</p>
         <div class="social">
@@ -266,7 +274,45 @@
             <a href="#"><i class="fa-brands fa-youtube"></i></a>
         </div>
     </footer>
-
+ 
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+ 
+    <script>
+        // ── Add to Cart ──
+        function addToCart(product) {
+            let cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const existing = cart.find(item => item.id === product.id);
+            if (existing) {
+                existing.qty += 1;
+            } else {
+                cart.push({ ...product, qty: 1 });
+            }
+            localStorage.setItem('cart', JSON.stringify(cart));
+            updateBadge();
+            showToast(product.name + ' added to cart!');
+        }
+ 
+        // ── Badge ──
+        function updateBadge() {
+            const cart = JSON.parse(localStorage.getItem('cart')) || [];
+            const total = cart.reduce((sum, i) => sum + i.qty, 0);
+            const badge = document.getElementById('cart-badge');
+            badge.textContent = total;
+            badge.style.display = total > 0 ? 'flex' : 'none';
+        }
+ 
+        // ── Toast ──
+        function showToast(msg) {
+            const toast = document.getElementById('toast');
+            toast.textContent = msg;
+            toast.classList.add('show');
+            setTimeout(() => toast.classList.remove('show'), 2500);
+        }
+ 
+        updateBadge();
+    </script>
+ 
 </body>
-
 </html>
+ 
