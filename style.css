@@ -93,6 +93,11 @@ section{
     height: 3.25rem;
 }
 
+.Cart_icon{
+    font-size: 2rem;
+    display: flex;
+}
+
 
 nav ul {
     display: flex;
